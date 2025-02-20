@@ -20,7 +20,8 @@ folder_files_list = [
     "artifacts/03_Pipeline/delete.csv",
     "artifacts/04_Models/delete.csv",
     "artifacts/05_Scores/delete.csv",
-    "logs/delete.csv",
+    "logs/Training/delete.csv",
+    "logs/Prediction/delete.csv",
 ]
 
 for path in folder_files_list:

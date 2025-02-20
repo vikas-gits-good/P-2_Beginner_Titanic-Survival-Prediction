@@ -1,8 +1,10 @@
 import pandas as pd
+import random
 
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import load_object
+from src.constants.random_name import last_name_list, title_list
 
 
 class PredictionPipeline:
@@ -19,7 +21,7 @@ class PredictionPipeline:
             model = load_object(file_path=model_path)
             preprc = load_object(file_path=preprc_path)
 
-            x_pred_tf = preprc.fit_transform(features)
+            x_pred_tf = preprc.transform(features)
             y_pred = model.predict(x_pred_tf)
 
             return y_pred
@@ -53,8 +55,12 @@ class CustomData:
     def get_DataFrame(self):
         try:
             logging.info("Converting user inputs to DataFrame")
+            # Adding a randomly generated "last name, title. random_name"
             cust_data = {
                 "Pclass": [self.Pclass],
+                "Name": [
+                    f"{random.choice(last_name_list)}, {random.choice(title_list)}. Random Placeholder Name"
+                ],
                 "Sex": [self.Sex],
                 "Age": [self.Age],
                 "SibSp": [self.SibSp],

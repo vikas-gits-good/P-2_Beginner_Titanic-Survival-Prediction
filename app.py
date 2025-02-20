@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 
-from src.logger import logging
+from src.logger_predict import logging
 from src.pipeline.pipeline_prediction import CustomData, PredictionPipeline
 
 application = Flask(__name__)
@@ -33,9 +33,9 @@ def predict_datapoint():
         logging.info("Calculating prediction for user input")
         ppln_pred = PredictionPipeline()
         y_pred = ppln_pred.predict(features=x_pred)
+        surv = "Survived" if y_pred == 1 else "Died"
         logging.info("Returning prediction to user")
-
-        return render_template("home.html", results=y_pred[0].round(2))
+        return render_template("home.html", results=surv)
 
 
 if __name__ == "__main__":

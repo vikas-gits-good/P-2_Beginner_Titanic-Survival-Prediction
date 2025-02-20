@@ -44,9 +44,9 @@ class Save_DataFrame(BaseEstimator, TransformerMixin):
         try:
             if X.shape[0] == 1:
                 if X.shape[1] == 17:
-                    self.save_path = "artifacts/02_DataFrames/Predict/df_pred_pp.pkl"
+                    self.save_path = "artifacts/02_DataFrames/Prediction/df_pred_pp.pkl"
                 else:
-                    self.save_path = "artifacts/02_DataFrames/Predict/df_pred_fs.pkl"
+                    self.save_path = "artifacts/02_DataFrames/Prediction/df_pred_fs.pkl"
 
             elif X.shape[0] > 180:
                 if X.shape[1] == 17:
@@ -229,6 +229,7 @@ class PipelineConstructor:
 
             # Create new column FamilySize based on LastName
             df["FamilySize"] = df.groupby("LastName")["LastName"].transform("count")
+            # df["FamilySize"] = df["SibSp"] + df["Parch"]
 
             # Create new column AgeGroup by binning
             df["AgeGroup"] = pd.cut(
@@ -277,7 +278,7 @@ class PipelineConstructor:
                 "Lady",
                 "the Countess",
             ]
-            df["ImpPpl"] = np.where(df["Title"].isin(imp_ppl), 1, 0)
+            df["ImpPpl"] = np.where(df["Title"].isin(imp_ppl), 50, 1)
 
             # Drop unnecessary colummns
             if drop:
