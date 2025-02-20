@@ -1,0 +1,12 @@
+setuptools
+pandas
+numpy
+matplotlib
+seaborn
+ipykernel
+scikit-learn
+imbalanced-learn
+xgboost
+statsmodels
+dill
+flask

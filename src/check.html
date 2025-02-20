@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pipeline Visualization</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .pipeline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 5px;
+      text-align: center;
+      background-color: #f9f9f9;
+      width: 300px;
+    }
+    .transformer {
+      border: 1px dashed #aaa;
+      padding: 5px;
+      margin: 3px;
+      background-color: #eee;
+    }
+    .arrow {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 15px solid #333;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pipeline Structure</h1>
+  <div class="pipeline">
+
+    <!-- Step 1: Impute -->
+    <div class="step">
+      <h2>Imputer</h2>
+      <div class="transformer">
+        <h3>KNNImputer</h3>
+        <p>Target Columns: Age</p>
+        <p>n_neighbors: 5</p>
+      </div>
+      <div class="transformer">
+        <h3>SimpleImputer (Most Frequent)</h3>
+        <p>Target Columns: Embarked</p>
+        <p>Strategy: most_frequent</p>
+      </div>
+      <div class="transformer">
+        <h3>SimpleImputer (Constant)</h3>
+        <p>Target Columns: Cabin</p>
+        <p>Strategy: constant</p>
+        <p>Fill Value: Missing</p>
+      </div>
+    </div>
+    <div class="arrow"></div>
+
+    <!-- Step 2: New Features -->
+    <div class="step">
+      <h2>New Features</h2>
+      <p>Function: create_features</p>
+      <p>Keyword Arguments: { 'drop': cols_drop }</p>
+    </div>
+    <div class="arrow"></div>
+
+    <!-- Step 3: Encode and Standardise -->
+    <div class="step">
+      <h2>Encode and Standardise</h2>
+      <div class="transformer">
+        <h3>OneHotEncoder</h3>
+        <p>Target Columns: Sex, Cabin, Embarked</p>
+        <p>sparse_output: False</p>
+        <p>drop: 'first'</p>
+      </div>
+      <div class="transformer">
+        <h3>PowerTransformer</h3>
+        <p>Target Columns: Age, Fare</p>
+      </div>
+    </div>
+     <div class="arrow"></div>
+    <!-- Step 4: Save DataFrame -->
+    <div class="step">
+        <h2>Save DataFrame</h2>
+        <p>Class: Save_DataFrame()</p>
+    </div>
+
+  </div>
+</body>
+</html>
