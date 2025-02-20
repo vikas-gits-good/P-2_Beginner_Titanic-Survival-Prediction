@@ -383,7 +383,12 @@ class PipelineConstructor:
                     # Save DataFrame
                     ("Save_DF_preprocessing", Save_DataFrame()),
                     # Feature Engineering
-                    ("PolyFeat", PolynomialFeatures(degree=2, include_bias=False)),
+                    (
+                        "PolyFeat",
+                        PolynomialFeatures(
+                            degree=2, include_bias=False, interaction_only=False
+                        ),
+                    ),
                     ("Selection", SelectKBest(score_func=f_regression, k=20)),
                     # ('PCA',PCA(n_components=20)),
                     ("Save_DF_feat_slcn", Save_DataFrame()),
